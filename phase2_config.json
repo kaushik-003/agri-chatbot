@@ -1,0 +1,11 @@
+{
+  "disease_index": "agri-chatbot-disease",
+  "scheme_index": "agri-chatbot-scheme",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "embedding_dimension": 384,
+  "disease_chunks": 296,
+  "scheme_chunks": 130,
+  "total_vectors": 426,
+  "approach": "separate_indexes",
+  "created_at": "2026-01-05T02:44:08.877967"
+}
