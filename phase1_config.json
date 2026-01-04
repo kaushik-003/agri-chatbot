@@ -1,0 +1,22 @@
+{
+  "chunking": {
+    "name": "Medium",
+    "size": 800,
+    "overlap": 150
+  },
+  "disease_stats": {
+    "total_pages": 67,
+    "total_tokens": 44629,
+    "avg_tokens": 666.1044776119403,
+    "min_tokens": 23,
+    "max_tokens": 1044
+  },
+  "scheme_stats": {
+    "total_pages": 63,
+    "total_tokens": 22751,
+    "avg_tokens": 361.12698412698415,
+    "min_tokens": 93,
+    "max_tokens": 545
+  },
+  "created_at": "2026-01-05T01:50:46.569892"
+}
