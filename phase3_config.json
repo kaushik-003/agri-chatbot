@@ -1,5 +1,6 @@
 {
-  "mongodb_uri": "mongodb+srv://koushikmaram17_db_user:2sAb6Nb1qsfjTCLj@***",
+  "mongodb_uri": "mongodb+srv://koushikmaram17_db_user:2sAb6Nb1qsfjTCLj@cluster0.abcdef.mongodb.net/?retryWrites=true&w=majority",
+  
   "database": "agri_chatbot",
   "collections": {
     "conversations": "conversations",
