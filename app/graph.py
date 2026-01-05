@@ -81,13 +81,13 @@ try:
     db = mongo_client[config_p3['database']]
     conversations_col = db[config_p3['collections']['conversations']]
     mongo_client.admin.command('ping')
-    print("✅ MongoDB Connected")
+    print(" MongoDB Connected")
 except Exception as e:
-    print(f"⚠️ MongoDB unavailable: {e}")
+    print(f" MongoDB unavailable: {e}")
     print("   Running in stateless mode (no conversation memory)")
 
 #  BUILD BM25 INDICES (Run on Startup)
-print("⏳ Building BM25 Indices...")
+print(" Building BM25 Indices...")
 def build_bm25(pdf_name):
     pdf_path = DATA_DIR / pdf_name
     reader = pypdf.PdfReader(pdf_path)
