@@ -1,15 +1,30 @@
+# Web Framework
 fastapi
-uvicorn
+uvicorn[standard]
 pydantic
+
+# Environment
 python-dotenv
+certifi
+
+# LangChain & LLM
 langchain
+langchain-core
 langchain-groq
 langchain-huggingface
+langchain-text-splitters
 langgraph
+
+# Vector DB & Memory
 pinecone-client
 pymongo
+dnspython
+
+# Embeddings & Reranking
 sentence-transformers
+transformers
+
+# Text Processing
 rank-bm25
 pypdf
-certifi
 nltk
