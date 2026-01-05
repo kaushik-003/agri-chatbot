@@ -175,19 +175,21 @@ Pure vector search often fails on specific agricultural terms (e.g., chemical na
 - **Cosine Similarity**: Captures conceptual meaning
 - **Reciprocal Rank Fusion (RRF)**: Combines both scores to surface the best documents
 
-## Deployment (Render)
+## Deployment (Hugging Face Spaces)
 
-1. Push code to GitHub
-2. Create a new **Web Service** on [Render.com](https://render.com)
-3. Connect your GitHub repo
-4. Configure build settings:
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `uvicorn main:app --host 0.0.0.0 --port 10000`
-5. Add **Environment Variables** in the Render dashboard:
+1. Create a new **Space** on [Hugging Face](https://huggingface.co/spaces)
+2. Select **Docker** as the SDK
+3. Connect your GitHub repo or upload files directly
+4. Add **Secrets** in Settings → Repository secrets:
    - `GROQ_API_KEY`
    - `PINECONE_API_KEY`
    - `MONGODB_URI`
-6. Deploy! 
+5. The Space will auto-build using the `Dockerfile`
+6. Access your API at: `https://huggingface.co/spaces/<username>/agri-chatbot`
+
+### Hugging Face Spaces Configuration
+
+The app runs on port **7860** (Hugging Face default). The Dockerfile is configured for this.
 
 ## Contributing
 
