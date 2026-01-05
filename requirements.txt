@@ -16,7 +16,7 @@ langchain-text-splitters
 langgraph
 
 # Vector DB & Memory
-pinecone-client
+pinecone
 pymongo
 dnspython
 
