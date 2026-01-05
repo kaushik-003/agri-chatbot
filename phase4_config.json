@@ -1,0 +1,44 @@
+{
+  "llm_provider": "groq",
+  "llm_model": "llama-3.3-70b-versatile",
+  "temperature": 0,
+  "intent_types": [
+    "disease",
+    "scheme",
+    "hybrid",
+    "unclear"
+  ],
+  "confidence_threshold": 0.7,
+  "max_context_messages": 4,
+  "test_results": {
+    "total_queries": 19,
+    "accuracy": "94.7%",
+    "avg_confidence": "0.89",
+    "per_category": {
+      "disease": {
+        "accuracy": "100.0%",
+        "total": 5
+      },
+      "scheme": {
+        "accuracy": "100.0%",
+        "total": 5
+      },
+      "hybrid": {
+        "accuracy": "80.0%",
+        "total": 5
+      },
+      "unclear": {
+        "accuracy": "100.0%",
+        "total": 4
+      }
+    }
+  },
+  "features": [
+    "intent_classification",
+    "clarification_generation",
+    "context_aware_classification",
+    "entity_extraction",
+    "mongodb_integration"
+  ],
+  "created_at": "2026-01-05T05:37:26.316252"
+}
