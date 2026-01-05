@@ -17,7 +17,7 @@ This chatbot uses an **Agentic RAG (Retrieval Augmented Generation)** system to:
 ```
 User Query → Intent Classification → Hybrid Retrieval → Answer Generation
                 ↓                          ↓                   ↓
-        MongoDB Memory            Pinecone Vector DB      Gemini LLM
+        MongoDB Memory            Pinecone Vector DB        GROQ LLM
 ```
 
 ## Tech Stack
@@ -86,36 +86,11 @@ uv run jupyter notebook
 3. **MongoDB Atlas**: https://www.mongodb.com/cloud/atlas (Free M0 tier)
 4. **LangSmith** (Optional): https://smith.langchain.com/
 
-## Project Structure
-
-```
-agri-chatbot/
-├── notebooks/           # Jupyter notebooks for development
-│   ├── 01_setup_and_data_exploration.ipynb
-│   ├── 02_pinecone_index_creation.ipynb
-│   ├── 03_mongodb_memory_setup.ipynb
-│   ├── 04_intent_classification.ipynb
-│   ├── 05_retrieval_pipeline.ipynb
-│   ├── 06_answer_generation.ipynb
-│   ├── 07_full_system_test.ipynb
-│   └── 08_deployment_prep.ipynb
-├── app/                 # Production code
-│   ├── agents/          # LangGraph agents
-│   ├── vectorstore/     # Pinecone operations
-│   ├── database/        # MongoDB operations
-│   └── utils/           # Helper functions
-├── data/                # PDF documents
-├── tests/               # Test suite
-├── main.py              # FastAPI application
-└── pyproject.toml       # Dependencies
-```
-
 ## Development Workflow
 
 1. **Phase 1-7**: Develop in Jupyter notebooks
 2. **Phase 8**: Convert to production FastAPI code
-3. **Testing**: Run test suite
-4. **Deployment**: Deploy to Render/Railway
+3. **Deployment**: Deploy to Render/Railway
 
 ## 📝 Usage
 
@@ -138,31 +113,91 @@ uv run uvicorn main:app --reload
 - `DELETE /conversation/{session_id}` - Clear conversation
 - `GET /health` - Health check
 
-## Testing
+## API Documentation
 
-```bash
-# Run all tests
-uv run pytest
+### `POST /chat`
 
-# Run with coverage
-uv run pytest --cov=app
+Primary endpoint for user interaction.
+
+**Request Body:**
+
+```json
+{
+  "query": "How do I control citrus canker?",
+  "session_id": "user_123"
+}
 ```
 
-## Documentation
+**Response:**
 
-- [Architecture](docs/ARCHITECTURE.md)
-- [API Documentation](docs/API.md)
-- [Deployment Guide](docs/DEPLOYMENT.md)
+```json
+{
+  "answer": "To control Citrus Canker, prune infected twigs and apply Copper Oxychloride (0.3%)...\n\nSource: CitrusPlantPestsAndDiseases.pdf",
+  "intent": "disease",
+  "processing_time": 2.15
+}
+```
+
+### `GET /health`
+
+Health check endpoint.
+
+**Response:**
+
+```json
+{
+  "status": "active",
+  "mongodb": "connected"
+}
+```
+
+## Design Decisions
+
+### 1. Vector Database Choice: Pinecone
+
+We chose Pinecone for its serverless architecture and low latency. It allows us to manage separate namespaces for disease and scheme data effectively without managing infrastructure.
+
+### 2. Chunking Strategy
+
+| Parameter   | Value                        |
+| ----------- | ---------------------------- |
+| **Method**  | Recursive Character Splitter |
+| **Size**    | 800 characters               |
+| **Overlap** | 150 characters               |
+
+**Reasoning:** This size captures full paragraphs of technical advice (e.g., a full treatment protocol) while keeping the context window focused for the LLM. The overlap prevents cutting sentences in half.
+
+### 3. Hybrid Search Implementation
+
+Pure vector search often fails on specific agricultural terms (e.g., chemical names like "Thiamethoxam"). We implemented **Hybrid Search**:
+
+- **BM25**: Captures exact keyword matches
+- **Cosine Similarity**: Captures conceptual meaning
+- **Reciprocal Rank Fusion (RRF)**: Combines both scores to surface the best documents
+
+## Deployment (Render)
+
+1. Push code to GitHub
+2. Create a new **Web Service** on [Render.com](https://render.com)
+3. Connect your GitHub repo
+4. Configure build settings:
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `uvicorn main:app --host 0.0.0.0 --port 10000`
+5. Add **Environment Variables** in the Render dashboard:
+   - `GROQ_API_KEY`
+   - `PINECONE_API_KEY`
+   - `MONGODB_URI`
+6. Deploy! 
 
 ## Contributing
 
 This is a hackathon project. Contributions welcome after evaluation period.
 
-## 📄 License
+## License
 
 MIT License
 
-## 👤 Author
+## Author
 
 **Kaushik Maram**
 
