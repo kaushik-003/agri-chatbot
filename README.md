@@ -23,11 +23,12 @@ User Query → Intent Classification → Hybrid Retrieval → Answer Generation
 ## Tech Stack
 
 - **Framework**: FastAPI
-- **Agent Orchestration**: LangChain, LangGraph, LangSmith
-- **LLM**: Google Gemini 1.5 Flash
-- **Vector Database**: Pinecone
-- **Memory Database**: MongoDB
-- **Embeddings**: Nomic Embed Text v1.5
+- **Agent Orchestration**: LangChain, LangGraph
+- **LLM**: Groq (Llama 3.3 70B Versatile)
+- **Vector Database**: Pinecone (Serverless)
+- **Memory Database**: MongoDB Atlas
+- **Embeddings**: sentence-transformers/all-MiniLM-L6-v2
+- **Re-ranking**: cross-encoder/ms-marco-MiniLM-L-6-v2
 - **Retrieval**: Semantic Search + BM25 + RRF Fusion + Cross-Encoder Re-ranking
 - **PDF Processing**: PyPDF, PDFPlumber
 
