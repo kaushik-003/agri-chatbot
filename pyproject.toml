@@ -41,6 +41,8 @@ dependencies = [
     "langchain-huggingface>=0.3.1",
     "pinecone>=7.3.0",
     "langchain-groq>=0.3.8",
+    "nltk>=3.9.2",
+    "langchain-text-splitters>=0.3.11",
 ]
 
 [tool.uv]
