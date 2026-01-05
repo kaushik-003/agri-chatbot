@@ -43,6 +43,8 @@ dependencies = [
     "langchain-groq>=0.3.8",
     "nltk>=3.9.2",
     "langchain-text-splitters>=0.3.11",
+    "certifi>=2026.1.4",
+    "dnspython>=2.7.0",
 ]
 
 [tool.uv]
