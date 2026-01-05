@@ -206,4 +206,4 @@ MIT License
 - GitHub: [kaushik-003](https://github.com/kaushik-003)
 - Email: koushikmaram17@gmail.com
 
-**Status**: In Development (Hackathon Project)
+**Status**: Developed (Hackathon Project)
