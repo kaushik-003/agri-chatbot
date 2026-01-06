@@ -113,7 +113,13 @@ class AgentState(TypedDict):
 
 def intent_node(state: AgentState):
     prompt = ChatPromptTemplate.from_messages([
-        ("system", "Classify query: 'disease', 'scheme', 'hybrid', 'unclear'. Return ONLY category."),
+        ("system", """Classify the agricultural query into ONE category:
+- disease: About crop diseases, pests, symptoms, treatments, pesticides
+- scheme: About government schemes, subsidies, loans, insurance, financial aid
+- hybrid: BOTH disease AND scheme mentioned (e.g., "schemes for disease control", "subsidies for pesticides")
+- unclear: Greetings, off-topic, or cannot determine
+
+Return ONLY the category name in lowercase."""),
         ("user", f"History: {state['chat_history']}\nQuery: {state['question']}")
     ])
     intent = (prompt | llm | StrOutputParser()).invoke({}).strip().lower()
